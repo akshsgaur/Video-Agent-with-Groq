@@ -6,7 +6,9 @@ import IconSparkleLoader from "@/media/IconSparkleLoader";
 
 interface AvatarInteractionProps {
   simli_faceid: string;
+  deepgram_model: string;
   deepgram_voice: string;
+  deepgram_language: string;
   initialPrompt: string;
   onStart: () => void;
   showDottedFace: boolean;
@@ -16,7 +18,9 @@ const simliClient = new SimliClient();
 
 const AvatarInteraction: React.FC<AvatarInteractionProps> = ({
   simli_faceid,
+  deepgram_model,
   deepgram_voice,
+  deepgram_language,
   initialPrompt,
   onStart,
   showDottedFace
@@ -98,7 +102,9 @@ const AvatarInteraction: React.FC<AvatarInteractionProps> = ({
         },
         body: JSON.stringify({
           initialPrompt: initialPrompt,
-          voiceId: deepgram_voice
+          model: deepgram_model,
+          voiceId: deepgram_voice,
+          language: deepgram_language,
         }),
       });
 

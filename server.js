@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 const server = http.createServer(app);
 
-const { createClient, LiveTranscriptionEvents, LiveTTSEvents } = require("@deepgram/sdk");
+const { createClient, LiveTranscriptionEvents } = require("@deepgram/sdk");
 const deepgramClient = createClient(process.env.DEEPGRAM_API_KEY);
 
 const { Groq } = require("groq-sdk");
@@ -28,8 +28,11 @@ console.log("Simli API key:", process.env.NEXT_PUBLIC_SIMLI_API_KEY ? `Set: ${pr
 // Connection manager to keep track of active connections
 const connections = new Map();
 
+let VoiceId = "aura-asteria-en";
+
 app.post('/start-conversation', (req, res) => {
-  const { initialPrompt, voiceId } = req.body;
+  const { initialPrompt, model, voiceId, language } = req.body;
+  VoiceId = voiceId;
   if (!initialPrompt) {
     return res.status(400).json({ error: 'Prompt is required' });
   }
@@ -37,7 +40,9 @@ app.post('/start-conversation', (req, res) => {
   const connectionId = Date.now().toString();
   connections.set(connectionId, { 
     initialPrompt,
+    model,
     voiceId,
+    language,
     currentStream: null
   });
   res.json({ connectionId, message: 'Conversation started. Connect to WebSocket to continue.' });
@@ -58,21 +63,21 @@ server.on('upgrade', (request, socket, head) => {
     wss.handleUpgrade(request, socket, head, (ws) => {
       const connection = connections.get(connectionId);
       console.log(`WebSocket: Client connected (ID: ${connectionId})`);
-      setupWebSocket(ws, connection.initialPrompt, connection.voiceId, connectionId);
+      setupWebSocket(ws, connection.initialPrompt, connection.model, connection.language, connectionId);
     });
   } else {
     socket.destroy();
   }
 });
 
-const setupWebSocket = (ws, initialPrompt, voiceId, connectionId) => {
+const setupWebSocket = (ws, initialPrompt, model, language, connectionId) => {
   let is_finals = [];
   let audioQueue = [];
   let keepAlive;
 
   const deepgram = deepgramClient.listen.live({
-    model: voiceId,
-    language: "en",
+    model: model,
+    language: language,
     smart_format: true,
     no_delay: true,
     interim_results: true,
@@ -194,7 +199,7 @@ async function startDeepgramTTS(ws, text, connectionId) {
 
     const response = await axios({
       method: 'POST',
-      url: 'https://api.deepgram.com/v1/speak?encoding=linear16&sample_rate=16000',
+      url: `https://api.deepgram.com/v1/speak?model=${VoiceId}&encoding=linear16&sample_rate=16000`,
       headers: {
         'Authorization': `Token ${process.env.DEEPGRAM_API_KEY}`,
         'Content-Type': 'application/json'

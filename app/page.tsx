@@ -11,17 +11,21 @@ import GitHubLogo from "@/media/github-mark-white.svg";
 interface Avatar {
   name: string;
   simli_faceid: string;
+  deepgram_model: string;
   deepgram_voice: string;
+  deepgram_language: string;
   initialPrompt: string;
 }
 
 // Updated JSON structure for avatar data with image URLs
 const avatar: Avatar = {
-  name: "Chrystal",
-  simli_faceid: "b7da5ed1-2abc-47c8-b7a6-0b018e031a26",
-  deepgram_voice: "nova-2",
+  name: "Jack",
+  simli_faceid: "04d062bc-00ce-4bb0-ace9-76880e3987ec",
+  deepgram_model: "nova-2",
+  deepgram_voice: "aura-zeus-en",
+  deepgram_language: "en",
   initialPrompt:
-    "You are a support agent for Simli and you're living in local Create-Simli-App, the interactive demo for Simli that you can start building from. You can swap me out with other characters.",
+    "You are a support agent for Simli and you're living in local Create-Simli-App, the interactive demo for Simli that you can start building from. You can swap me out with other characters. Your answers are short and brief",
 };
 
 const Demo: React.FC = () => {
@@ -53,7 +57,9 @@ const Demo: React.FC = () => {
           {showDottedFace && <DottedFace />}
           <AvatarInteraction
             simli_faceid={avatar.simli_faceid}
+            deepgram_model={avatar.deepgram_model}
             deepgram_voice={avatar.deepgram_voice}
+            deepgram_language={avatar.deepgram_language}
             initialPrompt={avatar.initialPrompt}
             onStart={onStart}
             showDottedFace={showDottedFace}
