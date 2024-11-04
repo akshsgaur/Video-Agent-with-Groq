@@ -40,7 +40,7 @@ const Demo: React.FC = () => {
       <div className="absolute top-[32px] right-[32px]">
         <text
           onClick={() => {
-            window.open("https://github.com/simliai/create-simli-app");
+            window.open("https://github.com/simliai/create-simli-app-groq-deepgram");
           }}
           className="font-bold cursor-pointer mb-8 text-xl leading-8"
         >
