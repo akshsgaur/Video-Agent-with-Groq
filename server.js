@@ -28,7 +28,7 @@ console.log("Simli API key:", process.env.NEXT_PUBLIC_SIMLI_API_KEY ? `Set: ${pr
 // Connection manager to keep track of active connections
 const connections = new Map();
 
-let VoiceId = "aura-asteria-en";
+let VoiceId = "aura-stella-en";
 
 app.post('/start-conversation', (req, res) => {
   const { initialPrompt, model, voiceId, language } = req.body;
@@ -278,7 +278,7 @@ async function promptLLM(ws, initialPrompt, prompt, connectionId) {
         }
       ],
       temperature: 1,
-      max_tokens: 50,
+      max_tokens: 1000,
       top_p: 1,
       stream: true,
     }, { signal: controller.signal });

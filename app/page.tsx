@@ -11,8 +11,8 @@ import GitHubLogo from "@/media/github-mark-white.svg";
 interface Avatar {
   name: string;
   simli_faceid: string;
-  deepgram_model: string;
-  deepgram_voice: string;
+  cartesia_model: string;
+  cartesia_voice: string;
   deepgram_language: string;
   initialPrompt: string;
 }
@@ -20,12 +20,12 @@ interface Avatar {
 // Updated JSON structure for avatar data with image URLs
 const avatar: Avatar = {
   name: "Jack",
-  simli_faceid: "04d062bc-00ce-4bb0-ace9-76880e3987ec",
-  deepgram_model: "nova-2",
-  deepgram_voice: "aura-zeus-en",
+  simli_faceid: "31e5dd74-a7a2-4a92-86dc-69e9c1cd7640",
+  cartesia_model: "nova-2-conversationalai",
+  cartesia_voice: "aura-zeus-en",
   deepgram_language: "en",
   initialPrompt:
-    "You are a support agent for Simli and you're living in local Create-Simli-App, the interactive demo for Simli that you can start building from. You can swap me out with other characters. Your answers are short and brief",
+    "You are a fitness trainer.",
 };
 
 const Demo: React.FC = () => {
@@ -39,10 +39,10 @@ const Demo: React.FC = () => {
 
   return (
     <div className="bg-black min-h-screen flex flex-col items-center font-abc-repro font-normal text-sm text-white p-8">
-      <SimliHeaderLogo />
-      <Navbar />
+      {/* <SimliHeaderLogo /> */}
+      {/* <Navbar /> */}
       <div className="absolute top-[32px] right-[32px]">
-        <text
+        {/*<text
           onClick={() => {
             window.open("https://github.com/simliai/create-simli-app-groq-deepgram");
           }}
@@ -50,15 +50,15 @@ const Demo: React.FC = () => {
         >
           <Image className="w-[20px] inline mr-2" src={GitHubLogo} alt="" />
           create-simli-app (Groq + Deepgram)
-        </text>
+        </text>*/}
       </div>
       <div className="flex flex-col items-center gap-6 bg-effect15White p-6 pb-[40px] rounded-xl w-full">
         <div>
-          {showDottedFace && <DottedFace />}
+          {/* {showDottedFace && <DottedFace />} */}
           <AvatarInteraction
             simli_faceid={avatar.simli_faceid}
-            deepgram_model={avatar.deepgram_model}
-            deepgram_voice={avatar.deepgram_voice}
+            deepgram_model={avatar.cartesia_model}
+            deepgram_voice={avatar.cartesia_voice}
             deepgram_language={avatar.deepgram_language}
             initialPrompt={avatar.initialPrompt}
             onStart={onStart}
@@ -67,7 +67,7 @@ const Demo: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-[350px] font-thin flex flex-col items-center ">
+      {/* <div className="max-w-[350px] font-thin flex flex-col items-center ">
         <span className="font-bold mb-[8px] leading-5 ">
           {" "}
           Create Simli App is a starter repo for creating an interactive app
@@ -88,7 +88,7 @@ const Demo: React.FC = () => {
           You can now deploy this app to Vercel, or incorporate it as part of
           your existing project.
         </span>
-      </div>
+      </div> */}
       {error && (
         <p className="mt-6 text-red-500 bg-red-100 border border-red-400 rounded p-3">
           {error}

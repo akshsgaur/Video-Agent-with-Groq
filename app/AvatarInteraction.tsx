@@ -51,6 +51,7 @@ const AvatarInteraction: React.FC<AvatarInteractionProps> = ({
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      console.log("This is the stream" + stream)
       setAudioStream(stream);
     } catch (err) {
       console.error('Error accessing microphone:', err);
@@ -74,6 +75,7 @@ const AvatarInteraction: React.FC<AvatarInteractionProps> = ({
       } else {
         try {
           const message = JSON.parse(event.data);
+          console.log(message)
           if (message.type === 'interrupt') {
             console.log('Interrupting current response');
             simliClient.ClearBuffer();
@@ -194,14 +196,14 @@ const AvatarInteraction: React.FC<AvatarInteractionProps> = ({
       >
         <VideoBox video={videoRef} audio={audioRef} />
       </div>
-      <div className="flex flex-col items-center">
+      <div className="flex items-center justify-center h-screen">
         {!isAvatarVisible ? (
           <button
             onClick={handleStart}
             disabled={isLoading}
             className={cn(
-              "w-full h-[52px] mt-4 disabled:bg-[#343434] disabled:text-white disabled:hover:rounded-[100px] bg-simliblue text-white py-3 px-6 rounded-[100px] transition-all duration-300 hover:text-black hover:bg-white hover:rounded-sm",
-              "flex justify-center items-center"
+              "w-full h-[52px] mt-70 position: bg-center disabled:bg-[#343434] disabled:text-white disabled:hover:rounded-[100px] bg-white text-black py-3 px-6 rounded-[100px] transition-all duration-300 hover:text-black hover:bg-white hover:rounded-sm",
+              "flex justify-center items-center justify-content: center height: 100vh"
             )}
           >
             {isLoading ? (
@@ -213,7 +215,7 @@ const AvatarInteraction: React.FC<AvatarInteractionProps> = ({
             )}
           </button>
         ) : (
-          <div className="flex items-center gap-4 w-full">
+          <div className="flex items-center justify-center h-screen">
             <button
               onClick={handleStop}
               className={cn(
