@@ -19,13 +19,13 @@ interface Avatar {
 
 // Updated JSON structure for avatar data with image URLs
 const avatar: Avatar = {
-  name: "Jack",
-  simli_faceid: "31e5dd74-a7a2-4a92-86dc-69e9c1cd7640",
+  name: "Tesla",
+  simli_faceid: "45687133-5125-4070-b9ec-f5ffbeb6de0b",
   cartesia_model: "nova-2-conversationalai",
   cartesia_voice: "aura-zeus-en",
   deepgram_language: "en",
   initialPrompt:
-    "You are a fitness trainer.",
+    "You are a relationship expert who is helping me with my relationship with my girlfriend. Her name is Groq.",
 };
 
 const Demo: React.FC = () => {
